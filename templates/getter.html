@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if result %}
+    <table border=1>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>cook_id</th>
+                <th>email</th>
+                <th>creating</th>
+                <th>password</th>
+                <th>role</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for x in result %}
+            <tr>
+                <td>{{ x.id }}</td>
+                <td>{{ x.cook_id }}</td>
+                <td>{{ x.email }}</td>
+                <td>{{ x.creating }}</td>
+            <td>{{ x.password }}</td>
+            <td>{{ x.role }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+    <strong>No result</strong>
+{% endif %}
+
+</body>
+</html>

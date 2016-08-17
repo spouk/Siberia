@@ -1,0 +1,159 @@
+/********************************
+  font styles
+*********************************/
+@font-face {
+    font-family: "Exo 2 Light";
+    src:  url(/static/font/styles/Exo2-Light.ttf);
+}
+
+@font-face {
+    font-family: "Consolas";
+    src:  url(/static/font/styles/Consolas.ttf);
+}
+body {
+    background: whitesmoke;
+    /*font-family: "Exo 2 Light", sans-serif;*/
+    font-family: "Consolas", sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+/********************************
+  global
+*********************************/
+.pading {
+    padding: 5px;
+}
+/********************************
+  style for container
+*********************************/
+.container_24, .container_6,.container_12 {
+    border: 1px solid #888888;
+}
+
+/********************************
+  base
+*********************************/
+.top {
+    border: 5px solid darkgrey;
+}
+.menu {
+    background-color: lavenderblush;
+    padding-bottom: 15px;
+}
+
+/********************************
+  block_head
+*********************************/
+#block_head {
+    background-color: lavender;
+
+}
+/********************************
+  block_body
+*********************************/
+#block_body {
+
+    background-color: antiquewhite;
+
+}
+
+/********************************
+  block_footer
+*********************************/
+#block_footer {
+    background-color: silver;
+
+}
+
+/********************************
+  forms styles
+*********************************/
+.forms {
+    border: 1px solid #555555;
+    background-color: #eeeeee;
+    max-width: 100%;
+    overflow: hidden;
+}
+.forms_input {
+    padding: 3px;
+    background-color: lightgray;
+}
+/********************************
+  global padding
+*********************************/
+.panel {
+    padding: 5px;
+}
+.border {
+    border: 1px solid red;
+    padding: 5px;
+}
+/********************************
+  table
+*********************************/
+table {
+    border: 1px solid lightgray;
+    padding: 3px;
+    table-layout: fixed;
+    width: 100%;
+}
+table td {
+    word-wrap: break-word;
+    padding: 3px;
+}
+input {
+    max-width: 100%;
+}
+
+/********************************
+  panel styles
+*********************************/
+
+.panel {
+    border: 1px solid lightgray;
+    background-color: whitesmoke;
+
+}
+.panel>title {
+    background-color: bisque;
+    font-weight: bold;
+    border-bottom: 2px solid brown;
+}
+.panel>body{
+    border: 2px solid #b3d4fc;
+
+}
+/********************************
+  errors classes
+*********************************/
+.error {
+    color: darkred;
+    border: 2px solid red;
+}
+
+/********************************
+  admin style
+*********************************/
+.left_menu {
+    border-right: 1px dashed lightblue;
+}
+.menulist {
+    list-style: none;
+}
+.menulist > li {
+    margin-left: -40px;
+    padding: 5px;
+    border-bottom: 1px dashed lightblue;
+}
+.menulist > li:hover {
+    background-color: lightblue;
+    border-right: 2px solid red;
+
+}
+.menulist > li i.show{
+    display: none;
+}
+.menulist > li:hover>i.show{
+    display: inline;
+}
+

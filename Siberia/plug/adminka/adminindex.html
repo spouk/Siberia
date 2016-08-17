@@ -1,0 +1,64 @@
+{% extends "adminka.html" %}
+{% block adminindex %}
+    {#-------------------------------------head block--------------------------------#}
+    <div id="block_head" class="container_24">
+        {% include "admin_head.html" %}
+    </div>
+    {# body block #}
+    {#-------------------------------------body block--------------------------------#}
+    <div id="admin_body" class="container_24">
+        <div class="left_menu grid_4">
+            <ul class="menulist">
+                <li><a href=""></a>
+                    <i class="fa fa-user"></i>
+                    Пользователи
+                </li>
+                <li><a href=""></a>
+                    <i class="fa fa-archive"></i>
+                    Категориии
+
+                </li>
+                <li><a href=""></a>
+                    <i class="fa fa-bar-chart"></i>
+                    Статьи</li>
+                <li><a href=""></a>
+                    <i class="fa fa-bar-chart-o"></i>
+                    Страницы</li>
+                <li><a href=""></a>
+                    <i class="fa fa-image"></i>
+                    Картинки</li>
+                <li><a href=""></a>
+                    <i class="fa fa-archive"></i>
+                    Отладка</li>
+                <li><a href=""></a>
+                    <i class="fa fa-asterisk"></i>
+                    Логи</li>
+                <li><a href=""></a>
+                    <i class="fa fa-android"></i>
+                    Утилиты</li>
+                <li><a href=""></a>
+                    <i class="fa fa-android"></i>
+                    Онлайн</li>
+            </ul>
+        </div>
+        <div class="content grid-20">
+            content
+        </div>
+
+        <strong>Section for blocks</strong>
+        <hr>
+        {#        {% block login %} {% endblock %}#}
+        {#        {% block restore %} {% endblock %}#}
+        {#        {% block register %} {% endblock %}#}
+        {#        {% block redirect_name %} {% endblock %}#}
+        {#        {% block debuginfo%} {% endblock %}#}
+
+        <hr>
+
+    </div>
+    {#-------------------------------------footer block--------------------------------#}
+    <div id="block_footer" class="container_24">
+        {% include "admin_footer.html" %}
+    </div>
+
+{% endblock %}

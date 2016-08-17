@@ -1,0 +1,45 @@
+{% extends "adminka/adminindex.html" %}
+{% block adminonline %}
+
+    <h3>Онлайн соединения</h3>
+    <hr>
+    {#    {{ answer }}#}
+
+    {#    {% for user1, cook1  in answer.records %}#}
+    {#    {{ user1 }} <br>#}
+    {#    {{ cook1 }}#}
+    {##}
+    {#    {% if answer.records %}#}
+
+    {{ answer.pagelinks }}
+    <div class="table">
+        <table border=1>
+            <thead>
+            <tr>
+                <th>host</th>
+                <th>port</th>
+                <th>lastconnect</th>
+                <th>count_connection</th>
+                <th>userid</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cook in answer.records %}
+                {% set s = jloads(str(cook.lastip).replace("'",'"')) %}
+                <tr>
+
+                    <td>{{ s.host }}</td>
+                    <td>{{ s.port }}</td>
+                    <td>{{ cook.lastconnect }}</td>
+                    <td>{{ cook.count_connection }}</td>
+                    <td>{{ cook.userid }}</td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

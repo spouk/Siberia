@@ -1,0 +1,89 @@
+{% extends "index.html" %}
+{% block login %}
+    {#    if login request path #}
+    {% if request.path == '/user/login' %}
+        <form action="{{ url_for('login_post') }}" method="post">
+            {% if form %}
+                {{ form.csrf_token }}
+                {{ form.email.label }} {{ form.email }} <br>
+                {{ form.password.label }} {{ form.password }} <br>
+                {{ form.submit }}
+            {% endif %}
+            {% if request.method == "POST" %}
+                Result: {{ form.errors }} {{ form.email.errors }} <br>
+            {% endif %}
+        </form>
+    {% endif %}
+    {#    register #}
+    {% if request.path == '/user/register' %}
+
+        <style>
+            .form {
+                padding: 5px;
+                background-color: whitesmoke;
+                box-shadow: 2px 0 0 red;
+            }
+
+            .title {
+                font-weight: bold;
+                text-align: left;
+                border-bottom: 2px solid gray;
+                padding: 5px 5px 5px 0;
+                margin-bottom: 10px;
+            }
+
+            .form input {
+                padding: 4px;
+                max-width: 100%;
+            }
+
+            .simpler {
+                border-left: 2px solid red;
+            }
+        </style>
+        <div class="grid_3 border">simple</div>
+        <div class="grid_4 border">simple</div>
+        <div class="grid_12 ">
+
+            FORM: {{ form.__dict__ }}
+            <hr>
+            <div class="form">
+                <div class="title">Registration form</div>
+                {% if form %}
+                    <form action="{{ url_for('register_post') }}" method="post">
+                        {{ form.csrf_token }}
+                        {{ sfh.with_errors(form.username, lcls = "simpler", fcls = "simpler") }}
+                        {{ sfh.with_errors(form.password) }}
+                        {{ sfh.with_errors(form.email) }}
+                        {{ sfh.with_errors(form.save_session) }}
+                        {{ sfh.with_errors(form.submit) }}
+                    </form>
+                {% endif %}
+                {% if app.request.method == "POST" and result %}
+                    <strong>Успешно прошел регистрацию</strong>
+                {% endif %}
+            </div>
+
+        </div>
+    {% endif %}
+
+    {#    restore login/emauil #}
+    {% if request.path == "/user/restore" %}
+
+            <div class="form">
+                <div class="title">Восстановление пароля</div>
+                {% if form %}
+                    <form action="{{ url_for('restore_post') }}" method="post">
+                        {{ form.csrf_token }}
+                        {{ sfh.with_errors(form.email) }}
+                        {{ sfh.with_errors(form.submit) }}
+                    </form>
+                {% endif %}
+            </div>
+        {% if result %}
+            <strong>Вам отправлено письмо с паролем</strong>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% block register %}
+
+    <style>
+    .form {
+        padding: 5px;
+        background-color: whitesmoke;
+        box-shadow: 2px 0 0 red;
+    }
+    .title {
+        font-weight: bold;
+        text-align: left;
+        border-bottom: 2px solid gray;
+        padding: 5px 5px 5px 0;
+        margin-bottom: 10px;
+    }
+    .form input {
+        padding: 4px;
+        max-width: 100%;
+    }
+    .simpler {
+        border-left: 2px solid red;
+    }
+    </style>
+    <div class="grid_3 border">simple</div>
+    <div class="grid_4 border">simple</div>
+    <div class="grid_12 ">
+            <div class="form">
+            <div class="title">Registration form</div>
+                {% if form %}
+                    <form action="{{ url_for('register_post') }}" method="post">
+                        {{ form.csrf_token }}
+                        {{ sfh.with_errors(form.username, lcls = "simpler", fcls = "simpler") }}
+                        {{ sfh.with_errors(form.password) }}
+                        {{ sfh.with_errors(form.email) }}
+                        {{ sfh.with_errors(form.save_session) }}
+                        {{ sfh.with_errors(form.submit) }}
+                        {#                <input type="submit" value="Send form">#}
+                    </form>
+                {% elif app.request.method == "POST" %}
+                    <strong>Result registering on system</strong> <br>
+                    <p><em>Result: {% if result %}
+                        {{ result }}
+                    {% endif %}</em></p>
+                {% endif %}
+            </div>
+
+    </div>
+{% endblock %}

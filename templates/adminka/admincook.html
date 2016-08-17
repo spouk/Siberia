@@ -1,0 +1,55 @@
+{% extends "adminka/adminindex.html" %}
+{% block admincook %}
+
+    <hr>
+{#    {{ s | safe }}#}
+    <a href="" class="active">SSSSS</a>
+
+    <strong>Users</strong>
+    <hr>
+{#    {{ request.path }} : {{ request.query }} : {{ request.url_args }}#}
+    <hr>
+
+    <style>
+        div.pagination > .active {
+            background-color: lightgoldenrodyellow;
+        }
+    </style>
+
+    <hr>
+
+
+    {% if cook %}
+        <table border=1>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>cookie</th>
+                <th>host</th>
+                <th>create</th>
+                <th>status</th>
+                <th>lastconnect</th>
+                <th>lastip</th>
+                <th>count_connection</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for k in cook %}
+                <tr>
+                    <td>{{ k.id }}</td>
+                    <td>{{ k.cookie }}</td>
+                    <td>{{ k.host }}</td>
+                    <td>{{ k.create }}</td>
+                    <td>{{ k.status }}</td>
+                    <td>{{ k.lastconnect }}</td>
+                    <td>{{ k.lastip }}</td>
+                    <td>{{ k.count_connection }}</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+
+{% endblock %}

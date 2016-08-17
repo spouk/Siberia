@@ -1,0 +1,106 @@
+{% extends "adminka/adminindex.html" %}
+{% block adminusers %}
+
+    <h3>Пользователи</h3>
+    <hr>
+
+    <a href="{{ url_for('admin_users_fn', parts={'fn':'create'}) }}">Создать юзера</a>
+    <button form="userform" type="submit">Удалить выделенных</button>
+    <hr>
+
+    {#    список пользователей  #}
+    {% if app.session.ref.ref_name == "admin_users_page" %}
+
+        {{ answer.pagelinks }}
+
+        {% if answer.records %}
+
+            <form id="userform" method="post" action="{{ url_for('admin_users_fn', parts={'fn':'delete'}) }}">
+            <div class="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>*</th>
+                        <th>id</th>
+                        <th>cook_id</th>
+                        <th>email</th>
+                        <th>creating</th>
+                        <th>password</th>
+                        <th>role</th>
+                        <th>operations</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for k in answer.records %}
+                        {% set url = 'http://' + request.host + url_for('admin_users_fn_id', parts={'fn':'update', 'id': k.id}) %}
+
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="ids" value="{{ k.id }}"/>
+                            </td>
+                            <td>
+                                <a href="">
+                                <div class="href">Link here</div>
+                            </a>
+                                {{ k.id }}
+                            </td>
+
+                            <td>{{ k.cook_id }}</td>
+                            <td onclick="SPU.getter(this);" href="{{ url }}">{{ k.email }}</td>
+                            <td>{{ k.creating }}</td>
+                            <td>{{ k.password }}</td>
+                            <td>{{ k.role }}</td>
+
+                            <td>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+                <input type="submit" value="Send form">
+            </form>
+        {% endif %}
+        {{ answer.pagelinks }}
+    {% endif %}
+
+    {#  function  #}
+
+    {% if app.session.ref.ref_name == "admin_users_fn" %}
+        {% if answer.fn == 'create' %}
+            {% set form = answer.form %}
+            {{ answer.flash }} <br>
+
+            <div class="title">форма создания нового пользователя</div>
+            <form action="{{ url_for('admin_users_fn', parts={'fn': 'create'}) }}" method="post">
+                {{ form.csrf_token }}
+                {{ sfh.with_errors(form.email) }}
+                {{ sfh.with_errors(form.password) }}
+                {{ sfh.with_errors(form.role) }}
+                {{ sfh.with_errors(form.submit) }}
+            </form>
+        {% endif %}
+        {% if answer.fn == 'delete' %}
+            <strong>delete user/s</strong>
+        {% endif %}
+    {% endif %}
+
+
+    {% if app.session.ref.ref_name == "admin_users_fn_id" %}
+{#        update {{ answer }}#}
+{#        update {{ answer.form }} {{ answer.id }}#}
+            {% if answer.fn == 'update' %}
+                {% set form = answer.form %}
+            <div class="title">форма редактирования пользователя</div>
+            <form action="{{ url_for('admin_users_fn_id', parts={'fn': 'update', 'id':answer.id }) }}" method="post">
+                {{ form.csrf_token }}
+                {{ sfh.with_errors(form.email, readonly="True") }}
+                {{ sfh.with_errors(form.password) }}
+                {{ sfh.with_errors(form.role) }}
+                {{ sfh.with_errors(form.submit) }}
+            </form>
+        {% endif %}
+    {% endif %}
+
+
+{% endblock %}

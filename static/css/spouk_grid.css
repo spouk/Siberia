@@ -1,0 +1,229 @@
+@charset "UTF-8";
+/* grid */
+[class*="col"] {
+  /*border: 1px solid red;*/
+  background-color: ghostwhite;
+  display: block;
+  float: left;
+  padding: 2px;
+  word-break: break-all;
+  word-wrap: break-word; }
+
+[class*="grid"] {
+  clear: both; }
+
+.col1 {
+  width: 8.33333%; }
+
+.col2 {
+  width: 16.66667%; }
+
+.col3 {
+  width: 25%; }
+
+.col4 {
+  width: 33.33333%; }
+
+.col5 {
+  width: 41.66667%; }
+
+.col6 {
+  width: 50%; }
+
+.col7 {
+  width: 58.33333%; }
+
+.col8 {
+  width: 66.66667%; }
+
+.col9 {
+  width: 75%; }
+
+.col10 {
+  width: 83.33333%; }
+
+.col11 {
+  width: 91.66667%; }
+
+.col12 {
+  width: 100%; }
+
+/* resets */
+*,
+*:before,
+*:after {
+  box-sizing: border-box; }
+
+ol,
+ul {
+  list-style: none; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block; }
+
+/* Some elements
+===============================================================================================*/
+.panel .plabel {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  height: 1%;
+  font-weight: bold;
+  background-color: whitesmoke;
+  padding: 0;
+  float: left; }
+  .panel .plabel em {
+    float: right;
+    font-weight: lighter;
+    font-style: normal;
+    font-size: small; }
+  .panel .plabel .title {
+    color: darkgray;
+    padding: 5px; }
+.panel .pcontent {
+  padding: 10px;
+  font-weight: normal;
+  background-color: white; }
+
+.tab [class*="passive"] {
+  display: none; }
+.tab > .active {
+  display: block; }
+.tab > .passive {
+  display: none; }
+
+pre {
+  white-space: pre-wrap;
+  /* Chrome & Safari */
+  white-space: -moz-pre-wrap;
+  /* Mozilla c 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */ }
+
+.break, .table2 table tr td, .table table td {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto; }
+
+.ellipsis {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  /*для IE8 */
+  -o-text-overflow: ellipsis;
+  /* для Opera */
+  text-overflow: ellipsis; }
+
+.text .code {
+  background-color: aqua;
+  color: red; }
+.text .title {
+  background-color: bisque;
+  color: blue; }
+.text .content {
+  background-color: cornsilk; }
+
+[class*="panel"] {
+  box-shadow: 0 0 1px grey; }
+
+input {
+  text-align: left;
+  max-width: 100%;
+  padding: 0.6em;
+  border: 1px solid lightgray; }
+
+/********************************
+  table
+*********************************/
+.table2 table {
+  border: 1px solid lightgray;
+  padding: 3px;
+  table-layout: fixed;
+  width: 100%; }
+  .table2 table thead {
+    background-color: lightgray;
+    word-break: break-all;
+    color: darkgray; }
+  .table2 table th {
+    text-align: center;
+    border-right: 1px dashed lightgray; }
+  .table2 table tr {
+    border-bottom: 1px dashed lightskyblue; }
+    .table2 table tr :hover {
+      background-color: #e8e8e8;
+      cursor: pointer; }
+    .table2 table tr td {
+      padding: 3px;
+      text-align: center;
+      border-right: 1px dashed lightgray; }
+      .table2 table tr td > a {
+        display: block;
+        height: 100%;
+        width: 100%; }
+
+.table table {
+  border: 1px solid lightgray;
+  padding: 3px;
+  table-layout: fixed;
+  width: 100%; }
+.table table thead {
+  background-color: lightgray;
+  word-break: break-all;
+  color: darkgray; }
+.table table th {
+  text-align: center;
+  border-right: 1px dashed lightgray; }
+.table table tr {
+  border-bottom: 1px dashed lightskyblue; }
+.table table td {
+  padding: 3px;
+  text-align: center;
+  border-right: 1px dashed lightgray; }
+.table table tr td a {
+  display: block;
+  height: 100%;
+  width: 100%; }
+.table td > a {
+  display: block; }
+.table tr:hover {
+  background-color: #e8e8e8;
+  cursor: pointer; }
+
+.visuallyhidden {
+  position: absolute;
+  width: 1px;
+  /* Устанавливаем это в 0px чтобы сделать невидимым для VoiceOver (программа чтения содержимого вслух)*/
+  height: 1px;
+  /* Устанавливаем это в 0px чтобы сделать невидимым для VoiceOver программа чтения содержимого вслух) */
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden; }
+
+/* Responsive Navigation Basic Style
+===============================================================================================*/
+@media screen and (max-width: 768px) {
+  [class*="col"] {
+    float: none;
+    width: 100%;
+    cursor: pointer; } }
+
+/*# sourceMappingURL=grid.css.map */

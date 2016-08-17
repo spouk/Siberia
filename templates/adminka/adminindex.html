@@ -1,0 +1,119 @@
+{% extends "adminka/adminka.html" %}
+{% block adminindex %}
+
+    {% set adminka_root = app.c.config.adminka.routepath %}
+    {#-------------------------------------head block--------------------------------#}
+    <div id="block_head" class="grid">
+        {% include "adminka/admin_head.html" %}
+    </div>
+    {# body block #}
+    {#-------------------------------------body block--------------------------------#}
+    <div id="admin_body" class="grid">
+        <div class="col2">
+            <div class="left_menu">
+                <ul class="menulist">
+                    <li><a href="{{ url_for('admin_users_page', parts={'p':1}) }}">
+                        <i class="fa fa-user"></i>
+                        Пользователи
+                    </a>
+                    </li>
+                    <li><a href=""></a>
+                        <i class="fa fa-archive"></i>
+                        Категориии
+
+                    </li>
+                    <li><a href=""></a>
+                        <i class="fa fa-bar-chart"></i>
+                        Статьи
+                    </li>
+                    <li><a href=""></a>
+                        <i class="fa fa-bar-chart-o"></i>
+                        Страницы
+                    </li>
+                    <li><a href=""></a>
+                        <i class="fa fa-image"></i>
+                        Картинки
+                    </li>
+                    <li><a href=""></a>
+                        <i class="fa fa-archive"></i>
+                        Отладка
+                    </li>
+                    <li><a href=""></a>
+                        <i class="fa fa-asterisk"></i>
+                        Логи
+                    </li>
+                    <li><a href=""></a>
+                        <i class="fa fa-android"></i>
+                        Утилиты
+                    </li>
+                    <li><a href="{{ url_for('admin_roles') }}">
+                        <i class="fa fa-asterisk"></i>
+                        Роли
+                    </a>
+                    </li>
+                    <li><a href="{{ url_for('admin_online_page', parts={'p':1}) }}">
+                        <i class="fa fa-android"></i>
+                        Онлайн
+                    </a>
+                    </li>
+                    <li><a href="">
+                        <i class="fa fa-android"></i>
+                        Кукисы
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col10">
+            {% set messages = app.flasher.get_g("adminka") %}
+            {% if messages %}
+                {% for group, type, message in messages %}
+                        <div class="{{ type }}">{{ message }}</div>
+                {% endfor %}
+
+            {% endif %}
+
+
+
+
+            <div class="content_wrapper">
+                {#   if adminka root #}
+                {#                {{ request }}#}
+                {#                {{ adminka_root }} {{ app.request.path }}#}
+                {% if adminka_root == request.path %}
+                    <strong>Базовый путь:</strong> {{ app.c.basedir }} <br>
+                    {#                    <strong>Имя хоста:</strong> {{ app.c.host }}:{{ app.c.port }} <br>#}
+                    <br>
+                    <hr>
+                    <strong>Текущая сессия: </strong>{{ app.session }} <br>
+                    <strong>Стак сессий: </strong>
+                    {% for k,v in app.fn.online.items() %}
+                        {{ k }} -  {{ v }} <br/>
+                    {% endfor %}
+
+
+
+                {% else %}
+
+                    {% block adminusers %} {% endblock %}
+                    {% block admincook %} {% endblock %}
+                    {% block adminonline %} {% endblock %}
+                    {% block adminroles %} {% endblock %}
+                    {#        {% block restore %} {% endblock %}#}
+                    {#        {% block register %} {% endblock %}#}
+                    {#        {% block redirect_name %} {% endblock %}#}
+                    {#        {% block debuginfo%} {% endblock %}#}
+
+                {% endif %}
+                <hr>
+            </div>
+        </div>
+    </div>
+    {#-------------------------------------footer block--------------------------------#}
+    <footer id="block_footer" class="content">
+        <div class="col12">
+            {% include "adminka/admin_footer.html" %}
+        </div>
+    </footer>
+
+{% endblock %}

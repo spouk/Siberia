@@ -1,0 +1,462 @@
+{#wtforms errors macro view #}
+
+
+{#############################################}
+{# ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ МАКРОСОВ     #}
+{#############################################}
+
+{% set BUTTONS_TYPE = {
+    'submit': '<span class="fa fa-check"></span>',
+    'reset' : '<span class="fa fa-close"></span>',
+} %}
+
+
+{#############################################}
+{# САМИ МАКРОСЫ     #}
+{#############################################}
+
+
+{#рендерин кнопки с бустратрапом 3 #}
+{% macro createbutton(type="submit", name="btn", formaction=None, icon=None, text="Button") -%}
+    {% if kwargs.has_key('class') %}
+        {% set class = kwargs.pop('class') %}
+        {% set class = class ~ " btn btn-primary " %}
+    {% else %}
+        {% set class = " btn btn-primary" %}
+    {% endif %}
+    {% if kwargs.has_key('class_') %}
+        {% set class = kwargs.pop('class_')  ~ " " ~ class %}
+    {% endif %}
+
+
+    <button type="{{ type }}" class="{{ class }}" name="{{ name }}"
+            {% if formaction %}
+            formaction="{{ formaction }}"
+            {% endif %}
+    {% if kwargs %}
+        {% for key, value in kwargs.iteritems() %}
+            {{ key }}="{{ value }}"
+        {% endfor %}
+    {% endif %}>
+
+    {% if type and type in BUTTONS_TYPE and not icon %}
+        {{ BUTTONS_TYPE[type] }}
+    {% endif %}
+    {% if icon %}
+        {{ icon }}
+    {% endif %}
+    {{ text }}
+    </button>
+
+{%- endmacro %}
+
+
+{# HREF BUTTON----#}
+{% macro createhrefbutton(type="submit", name="btn", formaction=None, icon=None, text="Button") -%}
+    {% set class = kwargs.has_key('class') and kwargs.pop('class') ~ " btn btn-primary" or "btn btn-primary" %}
+    <a type="{{ type }}" class="{{ class }}"
+            {% if href %}
+       href="{{ href }}"
+            {% endif %}
+    {% if kwargs %}
+        {% for key, value in kwargs.iteritems() %}
+            {{ key }}="{{ value }}"
+        {% endfor %}
+    {% endif %}>
+
+    {% if type and type in BUTTONS_TYPE and not icon %}
+        {{ BUTTONS_TYPE[type] }}
+    {% endif %}
+
+    {% if icon %}
+        {{ icon }}
+    {% endif %}
+    {{ text }}
+    </a>
+
+{%- endmacro %}
+
+
+{% macro with_errors(field, error_class='error ') %}
+    <div class="form_field">
+
+        {# set class style to label #}
+        {% set label_cls = kwargs.pop('lcls','') %}
+
+        {#  render label #}
+        {% if field.label %}
+            {{ field.label(class=kwargs.get('lcls')) }}
+        {% endif %}
+
+
+        {% if field.errors %}
+            {% set css_class = error_class + kwargs.pop('fcls', '') %}
+            {{ field(class=css_class, **kwargs) }}
+            <ul class="errors">
+                {% for error in field.errors %}
+                    <li>{{ error|e }}
+                    </li>{% endfor %}
+            </ul>
+        {% else %}
+            {% if fcls %}
+                {% set field_cls = kwargs.get('fcls', '') %}
+            {% endif %}
+            {{ field(class=kwargs.get('fcls'), **kwargs) }}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{#
+этот рендер годен для всех вводых форм текст текстовый блок
+StringField, TextField
+#}
+{% macro spouk_render_bootstrap_field(field) -%}
+
+    {% if field.id == "csrf_token" %}
+        {{ field }}
+    {% else %}
+        <div class="form-group {% if field.errors %} error_form {% endif %}">
+            {{ field.label }}
+            {{ field(class='form-control', **kwargs)|safe }}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <span class="help-inline">[{{ error }}]</span><br>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+{%- endmacro %}}
+
+
+{#<form class="form-horizontal">#}
+{##}
+{#	<div class="form-group">#}
+{##}
+{#		<label for="inputEmail" class="control-label col-xs-2">Email</label>#}
+{##}
+{#		<div class="col-xs-10">#}
+{##}
+{#			<input type="email" class="form-control" id="inputEmail" placeholder="Email">#}
+{##}
+{#		</div>#}
+{##}
+{#	</div>#}
+{#    <div class="form-group">#}
+{##}
+{#        <label for="inputEmail" class="control-label col-xs-2">Email</label>#}
+{##}
+{#        <div class="col-xs-10">#}
+{##}
+{#            <input type="email" class="form-control" id="inputEmail" placeholder="Email">#}
+{##}
+{#        </div>#}
+{##}
+{#    </div>#}
+
+{#############################################}
+{# render gorizomatal field  really   #}
+{#############################################}
+
+{% macro spouk_render_bootstrap_field_inline(field) -%}
+
+    {% if field.id == "csrf_token" %}
+        {{ field }}
+    {% else %}
+        <div class="form-group {% if field.errors %} error_form {% endif %}">
+            {{ field.label(class="control-label col-xs-5") }}
+            <div class="col-xs-7">
+                {{ field(class='form-control', **kwargs)|safe }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <span class="help-inline">[{{ error }}]</span><br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+{%- endmacro %}}
+
+
+{#############################################}
+{# render inline field     #}
+{#############################################}
+
+{% macro spouk_render_bootstrap_field_gorizont(field) -%}
+
+    {% if field.id == "csrf_token" %}
+        {{ field }}
+    {% else %}
+        <div class="form-inline">
+            <div class="form-group {% if field.errors %} error_form {% endif %}">
+                {{ field.label }}
+                {{ field(class='form-control', **kwargs)|safe }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <span class="help-inline">[{{ error }}]</span><br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+{%- endmacro %}}
+
+
+{#<label for="birthday" class="col-xs-2 control-label">Birthday</label>#}
+{#<div class="col-xs-10">#}
+{#	<div class="form-inline">#}
+{#		<div class="form-group">#}
+{#			<input type="text" class="form-control" placeholder="year"/>#}
+{#		</div>#}
+{#	</div>#}
+{#</div>#}
+
+
+
+
+{% macro spouk_render_button_field(field) -%}
+    <div class="form-control">
+        {{ field(class='btn btn-default', **kwargs) | safe }}
+    </div>
+{%- endmacro %}
+
+
+
+{% macro spouk_render_form_no_buttons(form,
+                     formid = '',
+                     action='',
+                     class='') -%}
+    <form id="{{ formid  or 'formid' }}" method="POST" action="{{ action }}" role="form" class="{{ class }}">
+    {#        {{ form.hidden_tag() if form.hidden_tag }}#}
+    {#          {{ form.csrf_token }}#}
+    {% if caller %}
+        {{ caller() }}
+    {% else %}
+        {% for f in form %}
+            {% if f.type != "ButtonField" %}
+                {{ spouk_render_bootstrap_field(f) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {#    сюда добавочно  этого рендера надо заюзать spouk_render_button_with_form для добавления кнопок и окончания формы#}
+{%- endmacro %}
+
+{% macro spouk_render_button_with_form(form) -%}
+    {% set action = kwargs.has_key('action') and kwargs.pop('action') or 'None Active' %}
+    {% set class = kwargs.has_key('class') and kwargs.pop('class') or 'btn btn-primary' %}
+
+    <div class="button lines">
+        {% for f in form %}
+            {% if f.type == "ButtonField" %}
+
+                {% if f.input_type == "submit" %}
+                    {{ spouk_render_button_field(f, class_=class, formaction=action, **kwargs) }}
+                {% else %}
+                    {{ spouk_render_button_field(f, class_=class, **kwargs) }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    </form>
+{%- endmacro %}
+
+
+
+{% macro spouk_render_button(field) -%}
+
+    {#    {% set class_ = kwargs.has_key('class_')  and kwargs.pop('class_') ~ " btn btn-primary " or "btn btn-primary" %}#}
+    {% set name = kwargs.has_key('name')  and kwargs.pop('name') or field.name %}
+    {% set id = kwargs.has_key('id')  and kwargs.pop('id') or field.id %}
+    {% set action = kwargs.has_key('action')  and kwargs.pop('action') or 'noneActionURL' %}
+    {% set type = kwargs.has_key('type')  and kwargs.pop('type') or field.input_type %}
+    {% set divid= 'id_div_' ~ field.id %}
+    {% set classes = "btn btn-primary" %}
+
+
+
+    <div id="{{ divid }}">
+        {% if field.input_type== "submit" %}
+            {{ field(name=name, id=id, formaction=action, **kwargs) }}
+        {% else %}
+            {{ field(name=name, id=id, **kwargs) }}
+        {% endif %}
+
+    </div>
+{%- endmacro %}
+
+
+
+{% macro spouk_render_form_buttons(form,
+                     formid = '',
+                     action_url='',
+                     action_text='Submit',
+                     classform='',
+                     btn_class='btn btn-default') -%}
+
+    <form id="{{ formid  or 'formid' }}" method="POST" action="{{ action_url }}" role="form" class="{{ classform }}">
+        {#        {{ form.hidden_tag() if form.hidden_tag }}#}
+        {#          {{ form.csrf_token }}#}
+        {% if caller %}
+            {{ caller() }}
+        {% else %}
+            {% for f in form %}
+                {% if f.type != "ButtonField" %}
+                    {{ render_bootstrap_field(f) }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div class="button lines">
+            {% for f in form %}
+                {% if f.type == "ButtonField" %}
+
+                    {% if f.input_type == "submit" %}
+                        {{ render_button_field(f, class_=btn_class, formaction=action_url) }}
+                    {% else %}
+                        {{ render_button_field(f, class_=btn_class) }}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </form>
+{%- endmacro %}
+
+
+
+{#-------------------------------------------------------#}
+
+{% macro render_checkbox_field_groupbox(field) -%}
+    {% set class_group = kwargs.pop('class_group') and  kwargs.pop('class_group') ~ "form-group" or "form-group" %}
+    {% set class_field = kwargs.pop('class_field') and  kwargs.pop('class_field') ~ "form-control" or "form-control" %}
+    {% set id_field = kwargs.pop('id') or "id" ~ field.name %}
+    {% set id_label = kwargs.pop('id') or "idlabel" ~ field.name %}
+    {% set class_label = kwargs.pop('id') or "label" ~ field.name %}
+    {% set place = kwargs.pop('place') or "placeholder " ~ field.name ~ " here" %}
+    <div class={{ class_group }}>
+        {{ field.label(class_=class_label, id=id_label) }}
+        {{ field(type='checkbox',
+                class=class_field ,
+                id=id_field,
+                placeholder=place,
+                **kwargs) }}
+    </div>
+{%- endmacro %}
+
+
+
+{% macro render_checkbox_field(field) -%}
+    <div class="checkbox">
+        <label>
+            {{ field.label }}{{ field(type='checkbox', **kwargs) }}
+        </label>
+    </div>
+{%- endmacro %}
+
+<button form="rubrika_form" class="btn btn-default" type="submit" value="erase" name="action"
+        {% if not result %}
+        disabled="disabled"
+        {% endif %}
+>
+    <span class="fa fa-minus"></span>
+    Удалить отмеченных
+</button>
+
+{#
+    formname = "formname"  - button for form definition,
+    class = "btn btn default" - classes
+    type = "submit" - default
+    value = "empty" - default
+    name = "namebutton" - default
+    icon  = fa iconname - default "fa fa-plus"
+    text = text button "Press me" - default
+#}
+
+{% macro render_button_sfh() -%}
+    {% set formname =kwargs.pop("formname") or "formname" %}
+    {% set class = kwargs.pop('class') and kwargs.pop('class') ~ " btn" or "btn btn-default" %}
+    {% set type =  kwargs.pop("type") or "submit" %}
+    {% set value =  kwargs.pop("value") or "empty" %}
+    {% set name =  kwargs.pop("name") or "namebutton" %}
+    {% set icon =  kwargs.pop("icon") and kwargs.pop("icon") ~  "fa " or "fa fa-plus" %}
+    {% set text =   kwargs.pop("text") or "Press me" %}
+
+    <button form="{{ formname }}" class="{{ class }}" type="{{ type }}" value="{{ value }}" name="{{ name }}">
+        <span class={{ icon }}
+        ></span>
+        {{ text }}
+    </button>
+
+{%- endmacro %}
+
+
+
+
+{% macro render_form(form, action, method="post", class="form_class", id="formid") %}
+    <form id="{{ id }}" method="{{ method }}" action="{{ url_for(action) }}">
+    <input id="csrf_token" name=_csrf_token type=hidden value="{{ csrf_token() }}">
+    {% if caller %}
+        {{ caller() }}
+    {% else %}
+        {% for f in form %}
+            {% if f.type == 'BooleanField' %}
+                {{ render_checkbox_field(f) }}
+            {% elif f.type == 'RadioField' %}
+                {{ render_radio_field(f) }}
+            {% else %}
+                {{ render_field(f) }}
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+{% endmacro %}
+
+
+
+
+{% macro render_form(form,
+                     formid = '',
+                     action_url='',
+                     action_text='Submit',
+                     classform='',
+                     btn_class='btn btn-default') -%}
+
+    <form id={{ formid }}  method="POST" action="{{ action_url }}" role="form" class="{{ classform }}">
+        {{ form.hidden_tag() if form.hidden_tag }}
+        {% if caller %}
+            {{ caller() }}
+        {% else %}
+            {% for f in form %}
+                {% if f.type == 'BooleanField' %}
+                    {{ render_checkbox_field(f) }}
+                {% elif f.type == 'RadioField' %}
+                    {{ render_radio_field(f) }}
+                {% else %}
+                    {{ render_field(f) }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <button type="submit" class="{{ btn_class }}">{{ action_text }} </button>
+    </form>
+{%- endmacro %}
+
+{##}
+{##}
+{#<div class="bs-example">#}
+{#    <form>#}
+{#        <div class="form-group">#}
+{#            <label for="inputEmail">Email</label>#}
+{#            <input type="email" class="form-control" id="inputEmail" placeholder="Email">#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <label for="inputPassword">Password</label>#}
+{#            <input type="password" class="form-control" id="inputPassword" placeholder="Password">#}
+{#        </div>#}
+{#        <div class="checkbox">#}
+{#            <label><input type="checkbox"> Remember me</label>#}
+{#        </div>#}
+{#        <button type="submit" class="btn btn-primary">Login</button>#}
+{#    </form>#}
+{#</div>#}
+{##}

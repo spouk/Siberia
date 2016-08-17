@@ -1,0 +1,72 @@
+{% extends "adminka/adminindex.html" %}
+{% block adminonline %}
+
+    <h3>Пользовательские роли в системе</h3>
+    <hr>
+    <a href="{{ url_for('admin_roles_fn', parts={'fn':'create'}) }}">Добавить роль</a>
+    <button form="roleform" type="submit">Удалить выделенных</button>
+    <hr>
+
+    {% if app.session.ref.ref_name == "admin_roles" %}
+        <form id="roleform" method="post" action="{{ url_for('admin_roles_fn', parts={'fn':'delete'}) }}">
+            <div class="table">
+                <table border=1>
+                    <thead>
+                    <tr>
+                        <th>*</th>
+                        <th>имя роли</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for rname, rname2 in answer.roles %}
+                        {% set url = 'http://' + request.host + url_for('admin_roles_fn_id', parts={'fn':'update', 'id': rname}) %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="ids" value="{{ rname }}"/>
+                            </td>
+                            <td onclick="SPU.getter(this);" href="{{ url }}">
+                                {{ rname }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    {% endif %}
+
+
+    {% if app.session.ref.ref_name == "admin_roles_fn" %}
+        {% if answer.fn == 'create' %}
+            {% set form = answer.form %}
+            {{ answer.flash }} <br>
+            <div class="title">форма создание новой роли в системе</div>
+            <form action="{{ url_for('admin_roles_fn', parts={'fn': 'create'}) }}" method="post">
+                {{ form.csrf_token }}
+                {{ sfh.with_errors(form.rolename) }}
+                {{ sfh.with_errors(form.write) }}
+                {{ sfh.with_errors(form.read) }}
+                {{ sfh.with_errors(form.delete) }}
+                {{ sfh.with_errors(form.edit) }}
+                {{ sfh.with_errors(form.submit) }}
+            </form>
+        {% endif %}
+    {% endif %}
+    {% if app.session.ref.ref_name == "admin_roles_fn_id" %}
+
+        {% if answer.fn == "update" %}
+            {% set form = answer.form %}
+            <div class="title">форма обновление роли в системе</div>
+            <form action="{{ url_for('admin_roles_fn_id', parts={'fn': 'update','id': answer.id}) }}" method="post">
+                {{ form.csrf_token }}
+                {{ sfh.with_errors(form.rolename) }}
+                {{ sfh.with_errors(form.write) }}
+                {{ sfh.with_errors(form.read) }}
+                {{ sfh.with_errors(form.delete) }}
+                {{ sfh.with_errors(form.edit) }}
+                {{ sfh.with_errors(form.submit) }}
+            </form>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

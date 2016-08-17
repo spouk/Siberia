@@ -1,0 +1,113 @@
+/********************************
+  base pure css menu styles
+*********************************/
+
+/* Giving a background-color to the nav container. */
+nav {
+    /*margin: 100px 0;*/
+    background-color: #E64A19;
+    height: 40px;
+}
+
+/* Since we'll have the "ul li" "float:left"
+ * we need to add a clear after the container. */
+
+nav:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Removing padding, margin and "list-style" from the "ul",
+ * and adding "position:reltive" */
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+
+/* Positioning the navigation items inline */
+nav ul li {
+    margin: 0px;
+    display: inline-block;
+    float: left;
+    background-color: #E64A19;
+}
+
+/* Styling the links */
+nav a {
+    display: block;
+    padding: 0 10px;
+    color: #FFF;
+    font-size: 20px;
+    line-height: 40px;
+    text-decoration: none;
+}
+
+/* Background color change on Hover */
+nav a:hover {
+    background-color: #000000;
+}
+
+/********************************
+  styles for submenu hidden default and show then hover
+*********************************/
+
+/* Hide Dropdowns by Default
+ * and giving it a position of absolute */
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+}
+
+/* Display Dropdowns on Hover */
+nav ul li:hover > ul {
+    display: block;
+    top: 40px;
+}
+
+/* Fisrt Tier Dropdown */
+nav ul ul li {
+    min-width: 250px;
+    float: none;
+    display: list-item;
+    position: relative;
+}
+
+/* Change ' +' in order to change the Dropdown symbol */
+li > a:after {
+    content: ' +';
+}
+
+li > a:only-child:after {
+    content: '';
+}
+
+/*style for admin_users*/
+.fn {
+    list-style: none;
+    display: block;
+}
+
+.fn > li {
+    background-color: lightgrey;
+    display: block;
+}
+
+.fn > li > a {
+    display: block;
+}
+
+.fn > li > a:hover {
+    background-color: lightgreen;
+}
+
+
+.href {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: lavender;
+}

@@ -1,0 +1,10 @@
+{# BODY PART - block_head.html #}
+{#{% extends "index.html" %}#}
+{#{% block block_head %}#}
+
+    <strong>Block head</strong> |
+        <a href="{{ url_for('register_get') }}">Регистрация</a>| <a href="{{ url_for('login_get') }}">Авторизация</a> |
+<a href="{{ url_for('debuginfo') }}">Отладка</a> |
+<a href="{{ url_for('adminka') }}">Adminka</a>
+
+{#{% endblock %}#}

@@ -1,0 +1,30 @@
+<div class="adminhead grid">
+        <div class="col12 border">
+
+            </div>
+        <nav>
+            <ul>
+                <li class="black_bg"><a href="{{ url_for('adminka') }}">Админка</a></li>
+                <li><a href="#">Всяко разное</a>
+                    <ul>
+                        <li><a href="#">Themes</a></li>
+                        <li><a href="#">Plugins</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                    </ul>
+                </li>
+
+                <li class="bc right_text"><a href="{{ url_for('index') }}">
+                    <i class="fa fa-recycle"></i>
+                    Главную страницу</a>
+                    <ul>
+                        <li><a href="{{ url_for('logout') }}">
+                            <i class="fa fa-logout"></i>
+                            Выйти</a></li>
+                        <li><a href="#">Plugins</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+</div>

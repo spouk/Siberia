@@ -1,0 +1,46 @@
+
+    @asyncio.coroutine
+    def paginatelinks(self):
+        """ формирование результата """
+        plinks = []
+        res = []
+        # формирую линки по количеству страниц показываемых между крайними значениями
+        st = None
+        if self.totalpages == 1:
+            st = 1
+        elif self.totalpages > 1:
+            st = 0
+
+        for x in range(st, self.totalpages + 1 ):
+            plinks.append(PAGE_LINK % (self.page==x and "active" or "passive", self.name, x, x))
+        # if self.totalpages  <= self.COUNT_LINKS  = показывается все, start, end = disabled
+        if self.totalpages <= self.COUNT_LINKS:
+            start = START_LINK % ('disabled', self.name, self.page)
+            if self.page < self.totalpages - 1:
+                end = END_LINK % ('', self.name, self.page  + 1)
+            else:
+                end = END_LINK % ('disabled', self.name, self.page)
+
+        # if self.totalpages > self.COUNT_LINKS
+        if self.totalpages > self.COUNT_LINKS:
+
+            if self.totalpages - self.page >= self.COUNT_LINKS:
+                plinks = plinks[self.page:self.page + self.COUNT_LINKS]
+            else:
+                plinks = plinks[self.totalpages - self.COUNT_LINKS:]
+
+            if self.page == 1:
+                start = START_LINK % ('disabled', self.name, self.page)
+                end = END_LINK % ('', self.name, self.page  + 1)
+            if self.page > 1:
+                start = START_LINK % ('', self.name, self.page - 1)
+                if self.totalpages == self.page:
+                    end = END_LINK % ('disabled', self.name, self.page)
+                else:
+                    end = END_LINK % ('', self.name, self.page  + 1)
+
+        res.append(start)
+        res.append(''.join(plinks))
+        res.append(end)
+        r = yield from self.jinja_rend(stroka=''.join(res))
+        self.result = LINKS_TEMPLATE % (self.defaultstyle and DEFAULT_STYLE or '', r)

@@ -1,0 +1,200 @@
+{% extends "index.html" %}
+{% block debuginfo %}
+
+    <strong>Paginations testing</strong>
+    <hr>
+    {% if records %}
+        {% for x in records %}
+        	{{x.id}} -  {{x.email}} - {{ x.password }} - {{ x.creating }} <br/>
+        {% endfor %}
+    {% endif %}
+
+    {{ pagelinks }}
+    <hr>
+
+    <strong>Session user:</strong>{{ app.session }} <br>
+    <hr>
+
+
+    <h2>Debug info page </h2>
+    <hr>
+    debuger: {{ app.c.debuger }}
+    plugins : {{ app.plugins }}
+    <hr>
+    <div class="panel">
+        <div class="panel title">Title panel</div>
+        <div class="panel body">Body panel</div>
+    </div>
+    <hr>
+
+
+    <style>
+    .ww {
+        word-wrap: break-word;
+        overflow: hidden;
+    }
+    </style>
+    <div class="grid_12">
+            <strong>App dict REALLTY: </strong>
+        <table border=1 style="table-layout: fixed; width: 100%">
+            <thead>
+            <tr class="ww">
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set fuk = dict(app.__dict__) %}
+            {% for k,v in app.__dict__.items() %}
+                <tr class="ww">
+                    <td class="ww">{{ k | upper }}</td>
+                    <td style="word-wrap: break-word">{{ v | string }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="clear"></div>
+
+
+
+    <div class="grid_12 ww">
+        <strong>App config:</strong>
+        <table border=1>
+            <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for k,v in app.c.items() %}
+                <tr>
+                    <td>{{ k }}</td>
+                    <td>{{ v }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <strong>App dict REALLTY: </strong>
+        <table border=1 class="ww">
+            <thead>
+            <tr class="ww">
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set fuk = dict(app.__dict__) %}
+            {% for k,v in app.__dict__.items() %}
+                <tr class="ww">
+                    <td class="ww">{{ k | upper }}</td>
+                    <td class="ww">{{ v | string }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <strong>App config:</strong>
+        <table border=1>
+            <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for k,v in app.c.items() %}
+                <tr>
+                    <td>{{ k }}</td>
+                    <td>{{ v }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<div class="clear"></div>
+
+    <div class="grid_12 ww">
+        <strong>App config:</strong>
+        <table border=1>
+            <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for k,v in app.c.items() %}
+                <tr>
+                    <td>{{ k }}</td>
+                    <td>{{ v }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <strong>App config:</strong>
+        <table border=1>
+            <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody class="ww">
+            {% for k,v in app.c.items() %}
+                <tr class="ww">
+                    <td class="ww">{{ k }}</td>
+                    <td class="ww">{{ v }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="clear"></div>
+    <hr>
+    <style>
+    .col {
+        border: 5px solid red;
+    }
+        .tester {
+            border-style: solid;
+            border-color: red;
+            border-width: 0px 0px 0px 10px;
+            padding-left: 10px;
+{#            background-color: #999999;#}
+
+        }
+
+    .ext {
+        border: 1px solid grey;
+{#         border: 10px solid transparent;#}
+{#        border-image: url(http://sitepoint-examples.s3.amazonaws.com/css3-border-image/bg-pawprints-all.jpg) 45 round;#}
+        border-style: dashed;
+
+    }
+    .int {
+        width: 5px;
+        height: 5px;
+        border: 5px solid red;
+        position: relative;
+    }
+    </style>
+    <div class="tester">
+        Simpler
+    ;dflkgd;fgkd;fkg <br>
+    d;flkgd;lfg;dlfgk <br>
+    d;lfkgd;lfgkd;flgkbr <br>
+    </div>
+
+    <div class="ext">
+    <div class="int"></div>
+        SImple ext block
+    dsfgdfgdf <br>
+    dfgdfgdfgdfg <br>
+    dfgdfgdfg dsfdfgdfg <br>
+    </div>
+
+
+{% endblock %}
